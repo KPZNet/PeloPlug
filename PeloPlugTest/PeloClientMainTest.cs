@@ -1,21 +1,23 @@
+using System.ComponentModel.Design;
 using WebAPIClient;
 
 namespace PeloPlugTest;
 
 public class Tests
 {
+    private IPelo iPelo;
+    
     [SetUp]
     public void Setup()
     {
+        iPelo = new PeloClient();
     }
 
     [Test]
     public async Task Test1()
     {
-        var peloPlug = new PeloClient();
-        await peloPlug.GetUserIDSession("kenceglia@hotmail.com", "Denver.12k");
-
-        var d = await peloPlug.GetWorkoutListAsync(maxRides: 3);
-        
+        await iPelo.GetUserIDSession("kenceglia@hotmail.com", "Denver.12k");
+        var d = await iPelo.GetWorkoutListAsync(maxRides: 3);
     }
+    
 }
