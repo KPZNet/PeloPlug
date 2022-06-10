@@ -3,7 +3,7 @@ using WorkOutEventNames;
 using WorkOutListNames;
 using WorkOutUserDetailsNames;
 
-namespace WebAPIClient;
+namespace PeloPlug;
 
 public interface IPelo
 {
