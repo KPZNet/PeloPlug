@@ -8,6 +8,8 @@ using WorkOutUserDetailsNames;
 
 namespace PeloPlug;
 
+
+
 public class PeloClient : IPelo
 {
     private readonly AuthenticationIDS authIDs = new();
@@ -16,7 +18,7 @@ public class PeloClient : IPelo
     private int pageSize { get; } = 20;
     private int ThrottleMilliseconds { get; } = 250;
 
-    public List<Datum> RideData { get; set; } = new();
+    public RideList RideData { get; set; } = new();
 
     public async Task<bool> GetUserIDSession(string userName, string passWord)
     {
@@ -91,7 +93,7 @@ public class PeloClient : IPelo
         return workOutUserDetails;
     }
 
-    public async Task<List<Datum>> GetWorkoutListAsync(int maxRides = 1000000)
+    public async Task<RideList> GetWorkoutListAsync(int maxRides = 1000000)
     {
         var cookie = $"peloton_session_id={authIDs.sessionID}";
         var pageNum = 0;
@@ -138,7 +140,7 @@ public class PeloClient : IPelo
             else
             {
                 bContinueQuery = false;
-                RideData = null;
+                RideData.Clear();
             }
         }
 

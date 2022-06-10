@@ -20,4 +20,11 @@ public class UnitTestPeloPlug
         var b = await iPelo.GetUserIDSession("XKenCeglia@hotmail.com", "Denver.12k");
         Assert.IsFalse(b);
     }
+    [TestMethod]
+    public async Task WorkOutList_Success()
+    {
+        IPelo iPelo = new PeloClient();
+        var b = await iPelo.GetUserIDSession("KenCeglia@hotmail.com", "Denver.12k");
+        Assert.IsTrue(b);
+    }
 }
