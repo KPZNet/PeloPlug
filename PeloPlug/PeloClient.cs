@@ -10,8 +10,8 @@ namespace WebAPIClient;
 
 public class PeloClient : IPelo
 {
-    private readonly HttpClient client = new();
     private readonly AuthenticationIDS authIDs = new();
+    private readonly HttpClient client = new();
 
     private int pageSize { get; } = 20;
     private int ThrottleMilliseconds { get; } = 250;

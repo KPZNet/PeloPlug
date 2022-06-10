@@ -1,4 +1,3 @@
-using System.ComponentModel.Design;
 using WebAPIClient;
 
 namespace PeloPlugTest;
@@ -6,7 +5,7 @@ namespace PeloPlugTest;
 public class Tests
 {
     private IPelo iPelo;
-    
+
     [SetUp]
     public void Setup()
     {
@@ -17,7 +16,6 @@ public class Tests
     public async Task Test1()
     {
         await iPelo.GetUserIDSession("kenceglia@hotmail.com", "Denver.12k");
-        var d = await iPelo.GetWorkoutListAsync(maxRides: 3);
+        var d = await iPelo.GetWorkoutListAsync(3);
     }
-    
 }
