@@ -7,9 +7,9 @@ namespace PeloPlug;
 
 public interface IPelo
 {
-    List<Datum> RideData { get; }
+    List<Datum> RideData { get; set; }
 
-    public Task GetUserIDSession(string userName, string passWord);
+    public Task<bool> GetUserIDSession(string userName, string passWord);
     public Task<WorkOutEventClass> GetWorkoutEventDetails(Datum ride);
     public Task<WorkOutDetailsClass> GetWorkoutDetails(string id, int secondsPerObservation);
     public Task<WorkOutUserDetailsClass> GetWorkoutUserDetails(Datum ride);

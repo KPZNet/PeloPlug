@@ -2,8 +2,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PeloPlug", "PeloPlug\PeloPlug.csproj", "{91B96724-21D4-4E0E-9DBC-797128F6E3A8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PeloPlugTest", "PeloPlugTest\PeloPlugTest.csproj", "{D71B0BBB-7503-458E-BC99-4048B2E1664A}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -14,9 +12,5 @@ Global
 		{91B96724-21D4-4E0E-9DBC-797128F6E3A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{91B96724-21D4-4E0E-9DBC-797128F6E3A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{91B96724-21D4-4E0E-9DBC-797128F6E3A8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D71B0BBB-7503-458E-BC99-4048B2E1664A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D71B0BBB-7503-458E-BC99-4048B2E1664A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D71B0BBB-7503-458E-BC99-4048B2E1664A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D71B0BBB-7503-458E-BC99-4048B2E1664A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

@@ -1,7 +1,10 @@
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 using PeloPlug;
 
 namespace PeloPlugTest;
 
+[TestClass]
 public class Tests
 {
     private IPelo iPelo;
@@ -13,7 +16,7 @@ public class Tests
     }
 
     [Test]
-    public async Task Test1()
+    public async Task AuthenticateTest_Success()
     {
         await iPelo.GetUserIDSession("kenceglia@hotmail.com", "Denver.12k");
         var d = await iPelo.GetWorkoutListAsync(3);

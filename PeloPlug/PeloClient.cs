@@ -16,10 +16,11 @@ public class PeloClient : IPelo
     private int pageSize { get; } = 20;
     private int ThrottleMilliseconds { get; } = 250;
 
-    public List<Datum> RideData { get; } = new();
+    public List<Datum> RideData { get; set; } = new();
 
-    public async Task GetUserIDSession(string userName, string passWord)
+    public async Task<bool> GetUserIDSession(string userName, string passWord)
     {
+        bool bReturn = false;
         var person = new Person();
         person.username_or_email = userName;
         person.password = passWord;
@@ -30,53 +31,63 @@ public class PeloClient : IPelo
         var url = "https://api.onepeloton.com/auth/login";
 
         var response = await client.PostAsync(url, data);
-        var result = response.Content.ReadAsStringAsync().Result;
+        if (response.IsSuccessStatusCode)
+        {
+            var result = response.Content.ReadAsStringAsync().Result;
+            var pdx = JsonConvert.DeserializeObject<UserSession>(result);
+            authIDs.userID = pdx.user_id;
+            authIDs.sessionID = pdx.session_id;
+            bReturn = true;
+        }
 
-        var pdx = JsonConvert.DeserializeObject<UserSession>(result);
-
-        authIDs.userID = pdx.user_id;
-        authIDs.sessionID = pdx.session_id;
+        return bReturn;
     }
-
-
+    
     public async Task<WorkOutEventClass> GetWorkoutEventDetails(Datum ride)
     {
+        WorkOutEventClass eventDetails = null;
         var url = $"https://api.onepeloton.com/api/ride/{ride.ride.id}/details";
         var request = new HttpRequestMessage(HttpMethod.Get, url);
         request.Headers.Add("accept", "application/json");
 
         var response = await client.SendAsync(request);
-        var result = response.Content.ReadAsStringAsync().Result;
-
-        var eventDetails = JsonConvert.DeserializeObject<WorkOutEventClass>(result);
-
+        if (response.IsSuccessStatusCode)
+        {
+            var result = response.Content.ReadAsStringAsync().Result; 
+            eventDetails = JsonConvert.DeserializeObject<WorkOutEventClass>(result);
+        }
         return eventDetails;
     }
 
     public async Task<WorkOutDetailsClass> GetWorkoutDetails(string id, int secondsPerObservation = 1)
     {
+        WorkOutDetailsClass workOutDetails = null;
         var url = $"https://api.onepeloton.com/api/workout/{id}/performance_graph?every_n={secondsPerObservation}";
         var request = new HttpRequestMessage(HttpMethod.Get, url);
         request.Headers.Add("accept", "application/json");
 
         var response = await client.SendAsync(request);
-        var result = response.Content.ReadAsStringAsync().Result;
-
-        var workOutDetails = JsonConvert.DeserializeObject<WorkOutDetailsClass>(result);
-
+        if (response.IsSuccessStatusCode)
+        {
+            var result = response.Content.ReadAsStringAsync().Result; 
+            workOutDetails = JsonConvert.DeserializeObject<WorkOutDetailsClass>(result);
+        }
         return workOutDetails;
     }
 
     public async Task<WorkOutUserDetailsClass> GetWorkoutUserDetails(Datum ride)
     {
+        WorkOutUserDetailsClass workOutUserDetails = null;
         var url = $"https://api.onepeloton.com/api/workout/{ride.id}";
         var request = new HttpRequestMessage(HttpMethod.Get, url);
         request.Headers.Add("accept", "application/json");
 
         var response = await client.SendAsync(request);
-        var result = response.Content.ReadAsStringAsync().Result;
-
-        var workOutUserDetails = JsonConvert.DeserializeObject<WorkOutUserDetailsClass>(result);
+        if (response.IsSuccessStatusCode)
+        {
+            var result = response.Content.ReadAsStringAsync().Result;
+            workOutUserDetails = JsonConvert.DeserializeObject<WorkOutUserDetailsClass>(result);
+        }
         return workOutUserDetails;
     }
 
@@ -110,18 +121,25 @@ public class PeloClient : IPelo
             request.Headers.Add("peloton-platform", "web");
 
             var response = await client.SendAsync(request);
-            var result = response.Content.ReadAsStringAsync().Result;
+            if (response.IsSuccessStatusCode)
+            {
+                var result = response.Content.ReadAsStringAsync().Result;
+                var workOutList = JsonConvert.DeserializeObject<WorkOutListClass>(result);
+                RideData.AddRange(workOutList.data);
 
-            var workOutList = JsonConvert.DeserializeObject<WorkOutListClass>(result);
-            RideData.AddRange(workOutList.data);
+                totRidesSoFar += workOutList.count;
+                pageNum++;
 
-            totRidesSoFar += workOutList.count;
-            pageNum++;
-
-            if (workOutList.show_next == false || totRidesSoFar >= maxRides)
-                bContinueQuery = false;
+                if (workOutList.show_next == false || totRidesSoFar >= maxRides)
+                    bContinueQuery = false;
+                else
+                    await Throttle();
+            }
             else
-                await Throttle();
+            {
+                bContinueQuery = false;
+                RideData = null;
+            }
         }
 
         return RideData;
