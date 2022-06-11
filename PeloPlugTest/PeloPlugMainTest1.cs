@@ -6,25 +6,45 @@ namespace PeloPlugTest;
 [TestClass]
 public class UnitTestPeloPlug
 {
+    IPelo iPelo = null;
+
+    [TestInitialize()]
+    public void Startup()
+    {
+        iPelo = new PeloClient();
+    }
+
+    [TestCleanup()]
+    public void Cleanup()
+    {
+
+    }
+
+
     [TestMethod]
+    [Owner("Kenneth Ceglia")]
+    [TestCategory("Authentication")]
     public async Task Authenticate_Success()
     {
-        IPelo iPelo = new PeloClient();
         var b = await iPelo.GetUserIDSession("KenCeglia@hotmail.com", "Denver.12k");
         Assert.IsTrue(b);
     }
     [TestMethod]
+    [Owner("Kenneth Ceglia")]
+    [TestCategory("PeloData")]
     public async Task Authenticate_Fail()
     {
-        IPelo iPelo = new PeloClient();
-        var b = await iPelo.GetUserIDSession("XKenCeglia@hotmail.com", "Denver.12k");
+        var iPeloF = new PeloClient();
+        var b = await iPeloF.GetUserIDSession("KenCeglia@hotmail.com", "");
         Assert.IsFalse(b);
     }
     [TestMethod]
+    [Owner("Kenneth Ceglia")]
+    [TestCategory("PeloData")]
     public async Task WorkOutList_Success()
     {
-        IPelo iPelo = new PeloClient();
-        var b = await iPelo.GetUserIDSession("KenCeglia@hotmail.com", "Denver.12k");
-        Assert.IsTrue(b);
+        await iPelo.GetUserIDSession("KenCeglia@hotmail.com", "Denver.12k");
+        var dataRet = await iPelo.GetWorkoutListAsync(3);
+        Assert.IsTrue(dataRet.Count == 3);
     }
 }
