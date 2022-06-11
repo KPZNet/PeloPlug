@@ -1,30 +1,27 @@
 ﻿<Properties StartupConfiguration="{0A1ED2EF-A313-451C-A4BA-876D54EB1F97}|Default">
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="/Users/kenceglia/Documents/PeloPlug/PeloPlugTest/PeloPlugMainTest1.cs" relfile="PeloPlugTest/PeloPlugMainTest1.cs" line="57" column="1" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.ItemProperties.PeloPlugTest PreferredExecutionTarget="MonoDevelop.Default" />
   <MultiItemStartupConfigurations />
-  <MonoDevelop.Ide.Workbench ActiveDocument="PeloPlugTest/PeloPlugMainTest1.cs">
-    <Files>
-      <File FileName="PeloPlugTest/PeloPlugMainTest1.cs" Line="39" Column="27" />
-      <File FileName="PeloPlug/PeloClient.cs" Line="26" Column="9" />
-      <File FileName="PeloPlug/PeloInf.cs" Line="19" Column="2" />
-    </Files>
+  <MonoDevelop.Ide.Workbench>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="PeloPlug" expanded="True">
-            <Node name="PeloPlug" expanded="True" />
-            <Node name="PeloPlugTest" expanded="True">
-              <Node name="Dependencies" expanded="True">
-                <Node name="PackageDependencies" expanded="True" />
-              </Node>
+            <Node name="PeloPlug" expanded="True">
+              <Node name="PeloInf.cs" selected="True" />
             </Node>
           </Node>
         </State>
       </Pad>
       <Pad Id="MonoDevelop.Debugger.WatchPad">
-        <State />
+        <State>
+          <Value>eventDetails</Value>
+          <Value>dataRet</Value>
+        </State>
       </Pad>
       <Pad Id="MonoDevelop.UnitTesting.TestPad">
         <State name="__root__">
