@@ -1,6 +1,6 @@
 ﻿<Properties StartupConfiguration="{0A1ED2EF-A313-451C-A4BA-876D54EB1F97}|Default">
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MonoDevelop.Ide.Workbench ActiveDocument="PeloPlug/PeloClient.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="PeloPlugTest/PeloPlugMainTest1.cs">
     <Files>
       <File FileName="PeloPlugTest/PeloPlugMainTest1.cs" Line="73" Column="8" />
       <File FileName="PeloPlug/PeloInf.cs" Line="15" Column="36" />
@@ -10,9 +10,7 @@
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="PeloPlug" expanded="True">
-            <Node name="PeloPlug" expanded="True">
-              <Node name="PeloClient.cs" selected="True" />
-            </Node>
+            <Node name="PeloPlug" expanded="True" />
             <Node name="PeloPlugTest" expanded="True" />
           </Node>
         </State>
@@ -25,7 +23,7 @@
       </Pad>
       <Pad Id="MonoDevelop.UnitTesting.TestPad">
         <State name="__root__">
-          <Node name="PeloPlug" expanded="True">
+          <Node name="PeloPlug" expanded="True" selected="True">
             <Node name="PeloPlugTest" expanded="True">
               <Node name="PeloPlugTest" expanded="True">
                 <Node name="UnitTestPeloPlug" expanded="True" />
