@@ -58,4 +58,22 @@ public class UnitTestPeloPlug
         Assert.IsTrue(eventDetails != null);
         Assert.IsTrue(eventDetails.ride.id != null);
     }
+    [TestMethod]
+    [Owner("Kenneth Ceglia")]
+    [TestCategory("PeloData")]
+    public async Task WorkOutDetails_Success()
+    {
+        var dataRet = await iPelo.GetWorkoutListAsync(3);
+        var workOutDetails = await iPelo.GetWorkoutDetails(dataRet[0].id, 60);
+        Assert.IsTrue(workOutDetails != null);
+    }
+    [TestMethod]
+    [Owner("Kenneth Ceglia")]
+    [TestCategory("PeloData")]
+    public async Task WorkOutUserDetails_Success()
+    {
+        var dataRet = await iPelo.GetWorkoutListAsync(3);
+        var workOutUserDetails = await iPelo.GetWorkoutUserDetails(dataRet[0]);
+        Assert.IsTrue(workOutUserDetails != null);
+    }
 }
