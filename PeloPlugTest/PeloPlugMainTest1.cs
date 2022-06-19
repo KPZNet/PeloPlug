@@ -73,7 +73,7 @@ public class UnitTestPeloPlug
     public async Task WorkOutUserDetails_Success()
     {
         var dataRet = await iPelo.GetWorkoutListAsync(3);
-        var workOutUserDetails = await iPelo.GetWorkoutUserDetails(dataRet[0]);
+        var workOutUserDetails = await iPelo.GetWorkoutUserDetails(dataRet[1]);
         Assert.IsTrue(workOutUserDetails != null);
     }
 }
