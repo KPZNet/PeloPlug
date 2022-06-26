@@ -8,8 +8,6 @@ using WorkOutUserDetailsNames;
 
 namespace PeloPlug;
 
-
-
 public class PeloClient : IPelo
 {
     private readonly AuthenticationIDS authIDs = new();
@@ -22,7 +20,7 @@ public class PeloClient : IPelo
 
     public async Task<bool> GetUserIDSession(string userName, string passWord)
     {
-        bool bReturn = false;
+        var bReturn = false;
         var person = new Person();
         person.username_or_email = userName;
         person.password = passWord;
@@ -44,7 +42,7 @@ public class PeloClient : IPelo
 
         return bReturn;
     }
-    
+
     public async Task<WorkOutEventClass> GetWorkoutEventDetails(Datum ride)
     {
         WorkOutEventClass eventDetails = null;
@@ -55,9 +53,10 @@ public class PeloClient : IPelo
         var response = await client.SendAsync(request);
         if (response.IsSuccessStatusCode)
         {
-            var result = response.Content.ReadAsStringAsync().Result; 
+            var result = response.Content.ReadAsStringAsync().Result;
             eventDetails = JsonConvert.DeserializeObject<WorkOutEventClass>(result);
         }
+
         return eventDetails;
     }
 
@@ -71,9 +70,10 @@ public class PeloClient : IPelo
         var response = await client.SendAsync(request);
         if (response.IsSuccessStatusCode)
         {
-            var result = response.Content.ReadAsStringAsync().Result; 
+            var result = response.Content.ReadAsStringAsync().Result;
             workOutDetails = JsonConvert.DeserializeObject<WorkOutDetailsClass>(result);
         }
+
         return workOutDetails;
     }
 
@@ -90,6 +90,7 @@ public class PeloClient : IPelo
             var result = response.Content.ReadAsStringAsync().Result;
             workOutUserDetails = JsonConvert.DeserializeObject<WorkOutUserDetailsClass>(result);
         }
+
         return workOutUserDetails;
     }
 

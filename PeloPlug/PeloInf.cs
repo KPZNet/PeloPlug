@@ -5,7 +5,9 @@ using WorkOutUserDetailsNames;
 
 namespace PeloPlug;
 
-public class RideList : List<Datum> { }
+public class RideList : List<Datum>
+{
+}
 
 public interface IPelo
 {

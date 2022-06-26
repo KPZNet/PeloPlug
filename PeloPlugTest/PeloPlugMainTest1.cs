@@ -1,24 +1,22 @@
 using PeloPlug;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace PeloPlugTest;
 
 [TestClass]
 public class UnitTestPeloPlug
 {
-    IPelo iPelo = null;
+    private IPelo iPelo;
 
-    [TestInitialize()]
+    [TestInitialize]
     public async Task StartupAsync()
     {
         iPelo = new PeloClient();
         await iPelo.GetUserIDSession("KenCeglia@hotmail.com", "Denver.12k");
     }
 
-    [TestCleanup()]
+    [TestCleanup]
     public void Cleanup()
     {
-
     }
 
 
@@ -31,6 +29,7 @@ public class UnitTestPeloPlug
         var b = await iPeloA.GetUserIDSession("KenCeglia@hotmail.com", "Denver.12k");
         Assert.IsTrue(b);
     }
+
     [TestMethod]
     [Owner("Kenneth Ceglia")]
     [TestCategory("PeloData")]
@@ -40,6 +39,7 @@ public class UnitTestPeloPlug
         var b = await iPeloF.GetUserIDSession("KenCeglia@hotmail.com", "");
         Assert.IsFalse(b);
     }
+
     [TestMethod]
     [Owner("Kenneth Ceglia")]
     [TestCategory("PeloData")]
@@ -48,6 +48,7 @@ public class UnitTestPeloPlug
         var dataRet = await iPelo.GetWorkoutListAsync(3);
         Assert.IsTrue(dataRet.Count == 3);
     }
+
     [TestMethod]
     [Owner("Kenneth Ceglia")]
     [TestCategory("PeloData")]
@@ -58,6 +59,7 @@ public class UnitTestPeloPlug
         Assert.IsTrue(eventDetails != null);
         Assert.IsTrue(eventDetails.ride.id != null);
     }
+
     [TestMethod]
     [Owner("Kenneth Ceglia")]
     [TestCategory("PeloData")]
@@ -67,6 +69,7 @@ public class UnitTestPeloPlug
         var workOutDetails = await iPelo.GetWorkoutDetails(dataRet[0].id, 60);
         Assert.IsTrue(workOutDetails != null);
     }
+
     [TestMethod]
     [Owner("Kenneth Ceglia")]
     [TestCategory("PeloData")]
