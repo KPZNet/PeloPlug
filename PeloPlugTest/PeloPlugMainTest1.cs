@@ -54,7 +54,7 @@ public class UnitTestPeloPlug
     [TestCategory("PeloData")]
     public async Task WorkOutEventDetails_Success()
     {
-        var dataRet = await iPelo.GetWorkoutListAsync(3);
+        var dataRet = await iPelo.GetWorkoutListAsync(20);
         var eventDetails = await iPelo.GetWorkoutEventDetails(dataRet[0]);
         Assert.IsTrue(eventDetails != null);
         Assert.IsTrue(eventDetails.ride.id != null);
@@ -75,8 +75,8 @@ public class UnitTestPeloPlug
     [TestCategory("PeloData")]
     public async Task WorkOutUserDetails_Success()
     {
-        var dataRet = await iPelo.GetWorkoutListAsync(3);
-        var workOutUserDetails = await iPelo.GetWorkoutUserDetails(dataRet[1]);
+        var dataRet = await iPelo.GetWorkoutListAsync(20);
+        var workOutUserDetails = await iPelo.GetWorkoutUserDetails(dataRet[10]);
         Assert.IsTrue(workOutUserDetails != null);
     }
 }

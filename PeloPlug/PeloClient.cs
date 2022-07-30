@@ -53,8 +53,21 @@ public class PeloClient : IPelo
         var response = await client.SendAsync(request);
         if (response.IsSuccessStatusCode)
         {
-            var result = response.Content.ReadAsStringAsync().Result;
-            eventDetails = JsonConvert.DeserializeObject<WorkOutEventClass>(result);
+            try
+            {
+                var settings = new JsonSerializerSettings
+                {
+                    NullValueHandling = NullValueHandling.Ignore,
+                    MissingMemberHandling = MissingMemberHandling.Ignore
+                };
+                var result = response.Content.ReadAsStringAsync().Result;
+                eventDetails = JsonConvert.DeserializeObject<WorkOutEventClass>(result, settings);
+            
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
         }
 
         return eventDetails;
