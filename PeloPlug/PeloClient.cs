@@ -66,6 +66,7 @@ public class PeloClient : IPelo
             }
             catch(Exception e)
             {
+
                 Console.WriteLine(e.Message);
             }
         }
