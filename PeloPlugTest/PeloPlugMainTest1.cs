@@ -8,6 +8,8 @@ using System.Text.Json.Serialization;
 public class UnitTestPeloPlug
 {
     private IPelo iPelo;
+    private int numRides = 5;
+    private int rideCheck = 0;
 
     [TestInitialize]
     public async Task StartupAsync()
@@ -47,8 +49,9 @@ public class UnitTestPeloPlug
     [TestCategory("PeloData")]
     public async Task WorkOutList_Success()
     {
-        var dataRet = await iPelo.GetWorkoutListAsync(3);
-        Assert.IsTrue(dataRet.Count == 3);
+        var dataRet = await iPelo.GetWorkoutListAsync(numRides);
+        int count = dataRet.Count(x => x.id != null);
+        Assert.IsTrue(count == numRides);
     }
 
     [TestMethod]
@@ -56,8 +59,8 @@ public class UnitTestPeloPlug
     [TestCategory("PeloData")]
     public async Task WorkOutEventDetails_Success()
     {
-        var dataRet = await iPelo.GetWorkoutListAsync(20);
-        var eventDetails = await iPelo.GetWorkoutEventDetails(dataRet[0]);
+        var dataRet = await iPelo.GetWorkoutListAsync(numRides);
+        var eventDetails = await iPelo.GetWorkoutEventDetails(dataRet[rideCheck].ride.id);
         Assert.IsTrue(eventDetails != null);
         Assert.IsTrue(eventDetails.ride.id != null);
 
@@ -68,8 +71,8 @@ public class UnitTestPeloPlug
     [TestCategory("PeloData")]
     public async Task WorkOutDetails_Success()
     {
-        var dataRet = await iPelo.GetWorkoutListAsync(3);
-        var workOutDetails = await iPelo.GetWorkoutDetails(dataRet[0].id, 60);
+        var dataRet = await iPelo.GetWorkoutListAsync(numRides);
+        var workOutDetails = await iPelo.GetWorkoutDetails(dataRet[rideCheck].id, 60);
         Assert.IsTrue(workOutDetails != null);
     }
 
@@ -78,8 +81,8 @@ public class UnitTestPeloPlug
     [TestCategory("PeloData")]
     public async Task WorkOutUserDetails_Success()
     {
-        var dataRet = await iPelo.GetWorkoutListAsync(20);
-        var workOutUserDetails = await iPelo.GetWorkoutUserDetails(dataRet[10]);
+        var dataRet = await iPelo.GetWorkoutListAsync(numRides);
+        var workOutUserDetails = await iPelo.GetWorkoutUserDetails(dataRet[rideCheck].id);
         Assert.IsTrue(workOutUserDetails != null);
     }
 }

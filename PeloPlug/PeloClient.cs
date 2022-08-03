@@ -49,10 +49,10 @@ public class PeloClient : IPelo
         return bReturn;
     }
 
-    public async Task<WorkOutEventClass> GetWorkoutEventDetails(Datum ride)
+    public async Task<WorkOutEventClass> GetWorkoutEventDetails(string id)
     {
         WorkOutEventClass eventDetails = null;
-        var url = $"https://api.onepeloton.com/api/ride/{ride.ride.id}/details";
+        var url = $"https://api.onepeloton.com/api/ride/{id}/details";
         var request = new HttpRequestMessage(HttpMethod.Get, url);
         request.Headers.Add("accept", "application/json");
 
@@ -72,8 +72,6 @@ public class PeloClient : IPelo
             }
             catch(Exception e)
             {
-
-                Console.WriteLine(e.Message);
             }
         }
         WriteJSON("EventDetails.json", eventDetails);
@@ -90,25 +88,37 @@ public class PeloClient : IPelo
         var response = await client.SendAsync(request);
         if (response.IsSuccessStatusCode)
         {
+            var settings = new JsonSerializerSettings
+            {
+                NullValueHandling = NullValueHandling.Ignore,
+                MissingMemberHandling = MissingMemberHandling.Ignore
+            };
+
             var result = response.Content.ReadAsStringAsync().Result;
-            workOutDetails = JsonConvert.DeserializeObject<WorkOutDetailsClass>(result);
+            workOutDetails = JsonConvert.DeserializeObject<WorkOutDetailsClass>(result, settings);
         }
         WriteJSON("WorkoutDetails.json", workOutDetails);
         return workOutDetails;
     }
 
-    public async Task<WorkOutUserDetailsClass> GetWorkoutUserDetails(Datum ride)
+    public async Task<WorkOutUserDetailsClass> GetWorkoutUserDetails(string id)
     {
         WorkOutUserDetailsClass workOutUserDetails = null;
-        var url = $"https://api.onepeloton.com/api/workout/{ride.id}";
+        var url = $"https://api.onepeloton.com/api/workout/{id}";
         var request = new HttpRequestMessage(HttpMethod.Get, url);
         request.Headers.Add("accept", "application/json");
 
         var response = await client.SendAsync(request);
         if (response.IsSuccessStatusCode)
         {
+            var settings = new JsonSerializerSettings
+            {
+                NullValueHandling = NullValueHandling.Ignore,
+                MissingMemberHandling = MissingMemberHandling.Ignore
+            };
+
             var result = response.Content.ReadAsStringAsync().Result;
-            workOutUserDetails = JsonConvert.DeserializeObject<WorkOutUserDetailsClass>(result);
+            workOutUserDetails = JsonConvert.DeserializeObject<WorkOutUserDetailsClass>(result, settings);
         }
         WriteJSON("UserWorkoutrDetails.json", workOutUserDetails);
         return workOutUserDetails;
@@ -146,8 +156,14 @@ public class PeloClient : IPelo
             var response = await client.SendAsync(request);
             if (response.IsSuccessStatusCode)
             {
+                var settings = new JsonSerializerSettings
+                {
+                    NullValueHandling = NullValueHandling.Ignore,
+                    MissingMemberHandling = MissingMemberHandling.Ignore
+                };
+
                 var result = response.Content.ReadAsStringAsync().Result;
-                var workOutList = JsonConvert.DeserializeObject<WorkOutListClass>(result);
+                var workOutList = JsonConvert.DeserializeObject<WorkOutListClass>(result, settings);
                 RideData.AddRange(workOutList.data);
 
                 totRidesSoFar += workOutList.count;

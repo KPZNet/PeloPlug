@@ -14,8 +14,8 @@ public interface IPelo
     RideList RideData { get; set; }
 
     public Task<bool> GetUserIDSession(string userName, string passWord);
-    public Task<WorkOutEventClass> GetWorkoutEventDetails(Datum ride);
+    public Task<WorkOutEventClass> GetWorkoutEventDetails(string id);
     public Task<WorkOutDetailsClass> GetWorkoutDetails(string id, int secondsPerObservation);
-    public Task<WorkOutUserDetailsClass> GetWorkoutUserDetails(Datum ride);
+    public Task<WorkOutUserDetailsClass> GetWorkoutUserDetails(string id);
     public Task<RideList> GetWorkoutListAsync(int maxRides);
 }
