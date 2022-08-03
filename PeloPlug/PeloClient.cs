@@ -18,6 +18,12 @@ public class PeloClient : IPelo
 
     public RideList RideData { get; set; } = new();
 
+    public void WriteJSON(String fileName, object jsn)
+    {
+        string jsonString = JsonConvert.SerializeObject(jsn);
+        File.WriteAllText(fileName, jsonString);
+    }
+
     public async Task<bool> GetUserIDSession(string userName, string passWord)
     {
         var bReturn = false;
@@ -70,7 +76,7 @@ public class PeloClient : IPelo
                 Console.WriteLine(e.Message);
             }
         }
-
+        WriteJSON("EventDetails.json", eventDetails);
         return eventDetails;
     }
 
@@ -87,7 +93,7 @@ public class PeloClient : IPelo
             var result = response.Content.ReadAsStringAsync().Result;
             workOutDetails = JsonConvert.DeserializeObject<WorkOutDetailsClass>(result);
         }
-
+        WriteJSON("WorkoutDetails.json", workOutDetails);
         return workOutDetails;
     }
 
@@ -104,7 +110,7 @@ public class PeloClient : IPelo
             var result = response.Content.ReadAsStringAsync().Result;
             workOutUserDetails = JsonConvert.DeserializeObject<WorkOutUserDetailsClass>(result);
         }
-
+        WriteJSON("UserWorkoutrDetails.json", workOutUserDetails);
         return workOutUserDetails;
     }
 
@@ -158,7 +164,7 @@ public class PeloClient : IPelo
                 RideData.Clear();
             }
         }
-
+        WriteJSON("RideList.json", RideData);
         return RideData;
     }
 

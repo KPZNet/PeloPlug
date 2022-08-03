@@ -1,6 +1,8 @@
 using PeloPlug;
 
 namespace PeloPlugTest;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 [TestClass]
 public class UnitTestPeloPlug
@@ -58,6 +60,7 @@ public class UnitTestPeloPlug
         var eventDetails = await iPelo.GetWorkoutEventDetails(dataRet[0]);
         Assert.IsTrue(eventDetails != null);
         Assert.IsTrue(eventDetails.ride.id != null);
+
     }
 
     [TestMethod]
