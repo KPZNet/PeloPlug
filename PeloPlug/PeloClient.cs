@@ -1,6 +1,6 @@
+using Newtonsoft.Json;
 using System.Text;
 using System.Text.Json.Serialization;
-using Newtonsoft.Json;
 using WorkOutDetailsNames;
 using WorkOutEventNames;
 using WorkOutListNames;
@@ -68,9 +68,9 @@ public class PeloClient : IPelo
                 };
                 var result = response.Content.ReadAsStringAsync().Result;
                 eventDetails = JsonConvert.DeserializeObject<WorkOutEventClass>(result, settings);
-            
+
             }
-            catch(Exception e)
+            catch (Exception e)
             {
             }
         }
