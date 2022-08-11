@@ -18,4 +18,5 @@ public interface IPelo
     public Task<WorkOutDetailsClass> GetWorkoutDetails(string id, int secondsPerObservation);
     public Task<WorkOutUserDetailsClass> GetWorkoutUserDetails(string id);
     public Task<RideList> GetWorkoutListAsync(int maxRides);
+    public Task<RideList> GetRides(int maxRides, int secondsPerObservation);
 }

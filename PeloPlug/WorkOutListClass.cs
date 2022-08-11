@@ -1,5 +1,9 @@
 ﻿namespace WorkOutListNames;
 
+using WorkOutDetailsNames;
+using WorkOutEventNames;
+using WorkOutUserDetailsNames;
+
 public class WorkOutListClass
 {
     public Datum[] data { get; set; }
@@ -33,6 +37,9 @@ public class Total_Heart_Rate_Zone_Durations
 
 public class Datum
 {
+    public WorkOutDetailsClass workoutDetails {get;set;}
+    public WorkOutEventClass workoutEventDetails {get;set;}
+    public WorkOutUserDetailsClass workoutUserDetails {get;set;}
     public int created_at { get; set; }
     public string device_type { get; set; }
     public int end_time { get; set; }

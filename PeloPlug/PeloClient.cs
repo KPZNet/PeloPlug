@@ -184,6 +184,21 @@ public class PeloClient : IPelo
         return RideData;
     }
 
+    public async Task<RideList> GetRides(int maxRides = 1000000, int secondsPerObservation = 1)
+    {
+        var rideList = await GetWorkoutListAsync(maxRides);
+        int count = rideList.Count(x => x.id != null);
+
+        foreach(var ride in rideList)
+        {
+            ride.workoutEventDetails = await GetWorkoutEventDetails(ride.ride.id);
+            ride.workoutDetails = await GetWorkoutDetails(ride.id, 60);
+            ride.workoutUserDetails = await GetWorkoutUserDetails(ride.id);
+        }
+        WriteJSON("Rides.json", rideList);
+        return rideList;
+    }
+
     private async Task Throttle()
     {
         await Task.Delay(ThrottleMilliseconds);

@@ -7,6 +7,7 @@ public class UnitTestPeloPlug
     private IPelo iPelo;
     private int numRides = 5;
     private int rideCheck = 0;
+    private int secondsPerObservation = 60;
 
     [TestInitialize]
     public async Task StartupAsync()
@@ -39,6 +40,16 @@ public class UnitTestPeloPlug
         var iPeloF = new PeloClient();
         var b = await iPeloF.GetUserIDSession("KenCeglia@hotmail.com", "");
         Assert.IsFalse(b);
+    }
+
+    [TestMethod]
+    [Owner("Kenneth Ceglia")]
+    [TestCategory("PeloData")]
+    public async Task RideList_Success()
+    {
+        var dataRet = await iPelo.GetRides(numRides, secondsPerObservation);
+        int count = dataRet.Count(x => x.id != null);
+        Assert.IsTrue(count == numRides);
     }
 
     [TestMethod]
