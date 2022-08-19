@@ -47,9 +47,27 @@ public class UnitTestPeloPlug
     [TestCategory("PeloData")]
     public async Task RideList_Success()
     {
+        bool gotAll = false;
         var dataRet = await iPelo.GetRides(numRides, secondsPerObservation);
         int count = dataRet.Count(x => x.id != null);
-        Assert.IsTrue(count == numRides);
+        gotAll = (count == numRides);
+        if (gotAll)
+        {
+            foreach (var ride in dataRet)
+            {
+                var workout = ride.workoutDetails;
+                var workoutEvent = ride.workoutEventDetails;
+                var workoutUser = ride.workoutUserDetails;
+
+                bool workOuts = workout != null && workoutEvent != null && workoutUser != null;
+                if (workOuts != true)
+                {
+                    gotAll = false;
+                    break;
+                }
+            }
+        }
+        Assert.IsTrue(gotAll == true);
     }
 
     [TestMethod]
